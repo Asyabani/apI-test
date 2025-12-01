@@ -2,36 +2,35 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title>Data Cuaca Jakarta - Open Meteo</title>
+    <title>Aplikasi Crypto - Coinlore API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Prakiraan Cuaca Jakarta</h1>
-      <p class="subtitle">
-        Data dari API <strong>Open-Meteo</strong> (time & temperature_2m).
-      </p>
+    <div class="app-wrapper">
+      <!-- Frame seperti layar mobile -->
+      <div class="app-container">
+        <header class="app-header">
+          <h1>Crypto List</h1>
+          <p class="subtitle">Data dari Coinlore API</p>
+        </header>
 
-      <div id="status" class="loading">Memuat data cuaca...</div>
+        <main class="app-content">
+          <div id="loading" class="info-text">Memuat data...</div>
+          <div id="error" class="info-text error-text" style="display: none">
+            Terjadi kesalahan saat mengambil data.
+          </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Waktu Pengukuran</th>
-            <th>Suhu (°C)</th>
-          </tr>
-        </thead>
-        <tbody id="weather-body">
-          <!-- Baris data akan diisi dengan JavaScript -->
-        </tbody>
-      </table>
+          <!-- List crypto akan dirender di sini oleh JavaScript -->
+          <div id="crypto-list" class="crypto-list"></div>
+        </main>
 
-      <p class="info">
-        Keterangan: hanya menampilkan <strong>10 data pertama</strong> dari API
-        agar lebih mudah dibaca.
-      </p>
+        <footer class="app-footer">
+          <small>Contoh Aplikasi Mobile - Cryptocurrency</small>
+        </footer>
+      </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

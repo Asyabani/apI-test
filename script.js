@@ -1,68 +1,86 @@
-// URL API cuaca Jakarta
-const API_URL =
-  'https://api.open-meteo.com/v1/forecast?latitude=-6.2&longitude=106.8&hourly=temperature_2m';
+document.addEventListener('DOMContentLoaded', () => {
+  fetchCryptos();
+});
 
-const statusEl = document.getElementById('status');
-const tbody = document.getElementById('weather-body');
+async function fetchCryptos() {
+  const loadingEl = document.getElementById('loading');
+  const errorEl = document.getElementById('error');
 
-// Fungsi untuk format waktu jadi lebih enak dibaca (lokal Indonesia)
-function formatWaktu(isoString) {
-  const date = new Date(isoString);
-  return date.toLocaleString('id-ID', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  try {
+    loadingEl.style.display = 'block';
+    errorEl.style.display = 'none';
+
+    const response = await fetch('https://api.coinlore.net/api/tickers/');
+    if (!response.ok) {
+      throw new Error('Response tidak OK: ' + response.status);
+    }
+
+    const json = await response.json();
+    const cryptoList = json.data; // array data crypto dari API
+
+    renderCryptoList(cryptoList);
+    loadingEl.style.display = 'none';
+  } catch (err) {
+    console.error(err);
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+  }
 }
 
-// Ambil data dari API ketika halaman selesai dimuat
-document.addEventListener('DOMContentLoaded', function () {
-  fetch(API_URL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Gagal mengambil data. Status: ' + response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Pastikan struktur data sesuai
-      const times = data.hourly.time;
-      const temps = data.hourly.temperature_2m;
+function renderCryptoList(cryptoList) {
+  const listEl = document.getElementById('crypto-list');
+  listEl.innerHTML = ''; // bersihkan dulu
 
-      // Tentukan berapa banyak data yang mau ditampilkan
-      const jumlahData = Math.min(10, times.length);
+  // Jika ingin batasi misalnya 50 data pertama:
+  // const limited = cryptoList.slice(0, 50);
+  // for (const item of limited) { ... }
 
-      // Hapus teks "Memuat..." karena data sudah siap
-      statusEl.textContent =
-        'Berhasil memuat data. Menampilkan ' + jumlahData + ' data pertama.';
+  cryptoList.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'crypto-card';
 
-      // Loop dan buat baris tabel
-      for (let i = 0; i < jumlahData; i++) {
-        const tr = document.createElement('tr');
+    // Kiri
+    const left = document.createElement('div');
+    left.className = 'crypto-left';
 
-        const tdNo = document.createElement('td');
-        tdNo.textContent = i + 1;
+    const rank = document.createElement('div');
+    rank.className = 'crypto-rank';
+    rank.textContent = `#${item.rank}`;
 
-        const tdTime = document.createElement('td');
-        tdTime.textContent = formatWaktu(times[i]);
+    const name = document.createElement('div');
+    name.className = 'crypto-name';
+    name.textContent = item.name;
 
-        const tdTemp = document.createElement('td');
-        tdTemp.textContent = temps[i].toFixed(1) + ' °C';
+    const symbol = document.createElement('div');
+    symbol.className = 'crypto-symbol';
+    symbol.textContent = item.symbol;
 
-        tr.appendChild(tdNo);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdTemp);
+    left.appendChild(rank);
+    left.appendChild(name);
+    left.appendChild(symbol);
 
-        tbody.appendChild(tr);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      statusEl.textContent = 'Terjadi kesalahan saat memuat data cuaca.';
-      statusEl.classList.remove('loading');
-      statusEl.classList.add('error');
-    });
-});
+    // Kanan
+    const right = document.createElement('div');
+    right.className = 'crypto-right';
+
+    const price = document.createElement('div');
+    price.className = 'crypto-price';
+    // Format harga jadi 2 digit desimal
+    const priceValue = Number(item.price_usd || 0).toFixed(2);
+    price.textContent = `$ ${priceValue}`;
+
+    const priceLabel = document.createElement('div');
+    priceLabel.className = 'crypto-price-label';
+    priceLabel.textContent = 'Price (USD)';
+
+    right.appendChild(price);
+    right.appendChild(priceLabel);
+
+    // Gabungkan ke card
+    card.appendChild(left);
+    card.appendChild(right);
+
+    // Tambahkan ke list
+    listEl.appendChild(card);
+  });
+}

@@ -1,67 +1,148 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+/* Reset kecil */
+* {
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+body {
+  background: #f1f3f6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-h1 {
-  font-size: 22px;
+/* Frame umum */
+.app-wrapper {
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.app-header {
+  padding: 16px 20px 8px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #ffffff;
+}
+
+.app-header h1 {
+  font-size: 20px;
   margin-bottom: 4px;
 }
 
-p.subtitle {
-  margin-top: 0;
-  font-size: 14px;
-  color: #555;
+.app-header .subtitle {
+  font-size: 12px;
+  opacity: 0.9;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
+/* Konten */
+.app-content {
+  padding: 12px 16px 8px;
+  max-height: 520px;
+  overflow-y: auto;
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px 10px;
-  font-size: 14px;
-  text-align: left;
-}
-
-th {
-  background-color: #007bff;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.info {
+/* Info text */
+.info-text {
+  text-align: center;
   font-size: 13px;
-  color: #555;
-  margin-top: 8px;
+  color: #6b7280;
+  margin-bottom: 8px;
 }
 
-.error {
-  color: #b00020;
-  font-size: 14px;
-  margin-top: 10px;
+.error-text {
+  color: #dc2626;
 }
 
-.loading {
+/* List */
+.crypto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card crypto */
+.crypto-card {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Kiri: rank & nama */
+.crypto-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.crypto-rank {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.crypto-name {
   font-size: 14px;
-  margin-top: 10px;
-  color: #333;
+  font-weight: 600;
+  color: #111827;
+}
+
+.crypto-symbol {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Kanan: harga */
+.crypto-right {
+  text-align: right;
+}
+
+.crypto-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.crypto-price-label {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* Footer */
+.app-footer {
+  padding: 10px 16px 12px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* Scrollbar kecil (opsional) */
+.app-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.app-content::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 999px;
 }
