@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Cuaca Jakarta - Open Meteo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Prakiraan Cuaca Jakarta</h1>
+      <p class="subtitle">
+        Data dari API <strong>Open-Meteo</strong> (time & temperature_2m).
+      </p>
+
+      <div id="status" class="loading">Memuat data cuaca...</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Waktu Pengukuran</th>
+            <th>Suhu (°C)</th>
+          </tr>
+        </thead>
+        <tbody id="weather-body">
+          <!-- Baris data akan diisi dengan JavaScript -->
+        </tbody>
+      </table>
+
+      <p class="info">
+        Keterangan: hanya menampilkan <strong>10 data pertama</strong> dari API
+        agar lebih mudah dibaca.
+      </p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
